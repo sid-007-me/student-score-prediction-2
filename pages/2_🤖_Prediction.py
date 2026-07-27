@@ -144,33 +144,32 @@ if predict:
 
     input_data = pd.DataFrame({
 
-        "Gender":[gender],
-        "Age":[age],
-        "Grade_Level":[grade],
-        "Attendance":[attendance],
-        "Study_Hours_Per_Day":[study_hours],
-        "Previous_GPA":[previous_gpa],
-        "Midterm_Score":[midterm],
-        "Assignment_Score":[assignment],
-        "Quiz_Score":[quiz],
-        "Class_Participation":[participation],
-        "Extracurricular":[extracurricular],
-        "Internet_Access":[internet],
-        "Parent_Education":[parent],
-        "Family_Income":[income],
-        "Sleep_Hours":[sleep],
-        "Screen_Time":[screen],
-        "Stress_Level":[stress],
-        "Teacher_Feedback":[feedback],
-        "Absences":[absences]
+        "Gender": [gender],
+        "Age": [age],
+        "Grade_Level": [grade],
+        "Attendance": [attendance],
+        "Study_Hours_Per_Day": [study_hours],
+        "Previous_GPA": [previous_gpa],
+        "Midterm_Score": [midterm],
+        "Assignment_Score": [assignment],
+        "Quiz_Score": [quiz],
+        "Class_Participation": [participation],
+        "Extracurricular": [extracurricular],
+        "Internet_Access": [internet],
+        "Parent_Education": [parent],
+        "Family_Income": [income],
+        "Sleep_Hours": [sleep],
+        "Screen_Time": [screen],
+        "Stress_Level": [stress],
+        "Teacher_Feedback": [feedback],
+        "Absences": [absences]
 
     })
 
     for col in label_encoders:
+        input_data[col] = label_encoders[col].transform(input_data[col])
 
-        input_data[col] = label_encoders[col].transform(
-            input_data[col]
-        )
+   
 
     prediction = model.predict(input_data)
 
@@ -185,18 +184,14 @@ if predict:
     st.info(f"Confidence : {confidence:.2f}%")
 
     if result[0] == "Excellent":
-
         st.success("🌟 Outstanding performance. Keep it up!")
 
     elif result[0] == "Good":
-
         st.info("📚 Good work. A little more effort can lead to excellent performance.")
 
     elif result[0] == "Average":
-
         st.warning("⚠ Improve attendance and study hours to boost performance.")
 
     else:
-
-        st.error("❌ High risk detected. Focus on regular study, attendance, and seek academic support.")    
+        st.error("❌ High risk detected. Focus on regular study, attendance, and seek academic support.")
     
